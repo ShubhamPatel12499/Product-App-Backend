@@ -3,6 +3,10 @@ const axios = require('axios');
 
 const app = express();
 
+app.use(cors({
+  origin:"*"
+}))
+
 app.get('/products', async (req, res) => {
   try {
     const response = await axios.get('https://services.odata.org/V2/Northwind/Northwind.svc/Products?$format=json');
