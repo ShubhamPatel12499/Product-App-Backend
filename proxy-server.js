@@ -2,10 +2,6 @@ const express = require('express');
 
 const app = express();
 
-app.use(cors({
-    origin:"*"
-}))
-
 app.get('/products', async (req, res) => {
   try {
     const response = await fetch('https://services.odata.org/V2/Northwind/Northwind.svc/Products?$format=json');
