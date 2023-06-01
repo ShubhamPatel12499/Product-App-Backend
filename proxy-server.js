@@ -10,9 +10,13 @@ app.use(cors({
 
 app.get('/products', async (req, res) => {
   let page=req.query.$skiptoken;
+  let id=req.query.id;
+  if(!id){
+    id="";
+  }
  
   try {
-    await axios.get(`https://services.odata.org/V2/Northwind/Northwind.svc/Products?$format=json&$skiptoken=${page}`).then((r)=>{
+    await axios.get(`https://services.odata.org/V2/Northwind/Northwind.svc/Products(${id})?$format=json&$skiptoken=${page}`).then((r)=>{
         res.send(r.data)
     }).catch((err)=>{
       res.send("Error");
