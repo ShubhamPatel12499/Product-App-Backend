@@ -9,9 +9,16 @@ app.use(cors({
 }))
 
 app.get('/products', async (req, res) => {
+  let page=req.query.$skiptoken;
+ 
   try {
-    const response = await axios.get('https://services.odata.org/V2/Northwind/Northwind.svc/Products?$format=json');
-    res.json(response.data);
+    await axios.get(`https://services.odata.org/V2/Northwind/Northwind.svc/Products?$format=json&$skiptoken=${page}`).then((r)=>{
+        res.send(r.data)
+    }).catch((err)=>{
+      res.send("Error");
+    })
+   
+    
   } catch (error) {
     console.error('Error fetching products:', error);
     res.status(500).json({ error: 'Failed to fetch products' });
